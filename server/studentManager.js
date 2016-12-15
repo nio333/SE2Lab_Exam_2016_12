@@ -134,7 +134,35 @@ var insertStudent = function insertStudent(student)
 }
 
 //AGGIUNGERE QUI SOTTO NUOVE FUNZIONI
-
+/**
+ * @brief This function search for a student, given his mark < or > of mark input search
+ * @param symbol, mark
+ */
+var searchStudentMark = function searchStudentMark(symbol, mark)
+{
+    var array = new Array;
+    if(symbol=='<'){
+        for (i=0; i < studentList.length; i++)
+        {
+            if (studentList[i].mark < mark)
+            {
+                array.push( studentList[i]);
+            }
+        }
+    }
+    else{
+        for (i=0; i < studentList.length; i++)
+        {
+            if (studentList[i].mark > mark)
+            {
+                array.push( studentList[i]);
+            }
+        } 
+    }
+    
+    //if reach this point return null
+    return null;
+}
 
 
 //export functions
@@ -143,4 +171,5 @@ exports.searchStudentSSN = searchStudentSSN;
 exports.deleteStudentID = deleteStudentID; 
 exports.deleteStudentSSN = deleteStudentSSN; 
 exports.insertStudent = insertStudent;  
-exports.getList = getList; 
+exports.getList = getList;
+exports.searchStudentMark = searchStudentMark; 

@@ -100,7 +100,7 @@ app.post('/searchStudent', function(request, response)
 		//unaceptable input
 		response.writeHead(406, headers);
 		response.end(JSON.stringify("1"));
-	}   
+	} 
 
 });
 
@@ -272,3 +272,53 @@ app.listen(app.get('port'), function() {
 });
 
 //AGGIUNGERE QUI SOTTO NUOVE FUNZIONI
+
+app.get('/searchByMark', function(request, response) 
+{
+    var headers = {};
+	headers["Access-Control-Allow-Origin"] = "*";
+	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+	headers["Access-Control-Allow-Credentials"] = false;
+	//headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+	headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+	headers["Content-Type"] = "application/json";
+    
+    var error= false;
+    var mark;
+    if ( typeof request.body !== 'undefined' && request.body)
+	{
+		if ( typeof request.body.mark !== 'undefined' && request.body.mark){
+            mark = request.body.mark;
+        }
+        else{ 
+            error=true;
+        }
+    }
+	else
+	{
+		error=true;
+	}   
+    
+    if (!error)
+	{
+		var arr = studentManager.searchStudentMark(mark.charAt(1), parseInt(mark.charAt(2)));
+		//if exists
+		if (arr != null)
+		{
+			response.writeHead(200, headers);
+			response.end(JSON.stringify(arr));
+		}
+		else
+		{
+			response.writeHead(404, headers);
+			response.end(JSON.stringify());
+		}
+
+	}
+    else    
+	{
+		//unaceptable input
+		response.writeHead(406, headers);
+		response.end(JSON.stringify("1"));
+	} 
+});
